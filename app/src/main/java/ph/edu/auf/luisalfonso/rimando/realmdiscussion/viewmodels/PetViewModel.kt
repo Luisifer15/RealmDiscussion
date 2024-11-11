@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.realm.kotlin.ext.query
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -19,6 +21,9 @@ class PetViewModel : ViewModel() {
     init {
         loadPets()
     }
+
+    private val _showSnackbar = MutableSharedFlow<String>()
+    val showSnackbar: SharedFlow<String> get() = _showSnackbar
 
     private fun loadPets() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -43,6 +48,7 @@ class PetViewModel : ViewModel() {
                     }
                 }
             }
+            _showSnackbar.emit("Removed ${model.name}")
         }
     }
 

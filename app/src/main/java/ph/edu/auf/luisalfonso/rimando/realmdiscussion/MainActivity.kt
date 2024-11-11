@@ -11,6 +11,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import ph.edu.auf.luisalfonso.rimando.realmdiscussion.navigation.AppNavigation
 import ph.edu.auf.luisalfonso.rimando.realmdiscussion.screens.PetScreen
 import ph.edu.auf.luisalfonso.rimando.realmdiscussion.ui.theme.RealmDiscussionTheme
 
@@ -20,7 +22,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             RealmDiscussionTheme {
-                PetScreen()
+                val navController = rememberNavController()
+                AppNavigation(navController)
             }
         }
     }
